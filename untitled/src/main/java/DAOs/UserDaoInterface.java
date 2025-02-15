@@ -1,4 +1,11 @@
 package DAOs;
+import DTOs.User;
+import Exceptions.DaoException;
+import java.util.List;
 
-public class UserDaoInterface {
+public interface UserDaoInterface
+{
+    public List<User> findAllUsers() throws DaoException;
+
+
 }

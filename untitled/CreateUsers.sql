@@ -1,5 +1,6 @@
 DROP DATABASE IF EXISTS `expense_income_database`;
 CREATE DATABASE `expense_income_database`;
+USE `expense_income_database`;
 DROP TABLE IF EXISTS `expense`;
 CREATE TABLE `expense` (
                            `EXPENSE_ID` int(11) NOT NULL AUTO_INCREMENT,
