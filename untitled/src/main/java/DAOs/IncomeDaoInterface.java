@@ -13,4 +13,6 @@ public interface IncomeDaoInterface {
     void addIncome(String title, Double amount, Date dateEarned) throws DaoException;
 
     void deleteIncomeById(int incomeId) throws DaoException;
+
+    public List<Income> findIncomeByMonth(int year, int month)throws DaoException;
 }

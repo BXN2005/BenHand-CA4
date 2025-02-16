@@ -1,13 +1,11 @@
 import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
-public class AppMainTest
-{
 
-
+public class AppMainTest {
     @Test
-    public void shouldAnswerWithTrue()
-    {
-        assertTrue( true );
+    public void shouldAnswerWithTrue() {
+        assertTrue(true);
     }
 
 }

@@ -140,7 +140,7 @@ public class AppMain {
 
 
             IIncomeDao.deleteIncomeById(incomeId);
-            System.out.println("Income added successfully!");
+
 
             List<Income> incomes = IIncomeDao.findAllIncome();
 
@@ -153,7 +153,54 @@ public class AppMain {
         } catch (DaoException e) {
             e.printStackTrace();
         }
+
+
+        try {
+            System.out.print("Enter year (YYYY): ");
+            int year = scanner.nextInt();
+            System.out.print("Enter month (MM): ");
+            int month = scanner.nextInt();
+
+            List<Income> incomes = IIncomeDao.findIncomeByMonth(year, month);
+            List<User> expenses = IUserDao.findExpensesByMonth(year, month);
+
+            double totalIncome = 0;
+            for (Income income : incomes) {
+                totalIncome += income.getAmount();
+            }
+
+            double totalExpense = 0;
+            for (User expense : expenses) {
+                totalExpense += expense.getAmount();
+            }
+            double remainingBalance = totalIncome - totalExpense;
+
+
+            System.out.println("\nSummary for " + year + "-" + month);
+            System.out.println("Total Income: " + totalIncome);
+            System.out.println("Total Expenses: " + totalExpense);
+            System.out.println("Remaining Balance: " + remainingBalance);
+
+            System.out.println("\nIncome Details:");
+            for (Income income : incomes) {
+                System.out.println(income);
+            }
+
+            System.out.println("\nExpense Details:");
+            for (User expense : expenses) {
+                System.out.println(expense);
+            }
+        } catch (DaoException e) {
+            e.printStackTrace();
+        } finally {
+            scanner.close();
+        }
     }
-
-
 }
+
+
+
+
+
+
+

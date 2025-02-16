@@ -122,4 +122,45 @@ public class MySqlIncomeDao extends MySqlDao implements IncomeDaoInterface {
             }
         }
     }
+    @Override
+    public List<Income> findIncomeByMonth(int year, int month) throws DaoException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        List<Income> incomeList = new ArrayList<>();
+        double totalIncome = 0;
+
+        try {
+            connection = this.getConnection();
+            String query = "SELECT * FROM INCOME WHERE YEAR(DATEEARNED) = ? AND MONTH(DATEEARNED) = ?";
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, year);
+            preparedStatement.setInt(2, month);
+
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                int incomeId = resultSet.getInt("INCOME_ID");
+                String title = resultSet.getString("TITLE");
+                Double amount = resultSet.getDouble("AMOUNT");
+                Date dateEarned = resultSet.getDate("DATEEARNED");
+                totalIncome += amount;
+
+                incomeList.add(new Income(incomeId, title, amount, dateEarned));
+            }
+
+            System.out.println("Total Income for " + year + "-" + month + ": " + totalIncome);
+        } catch (SQLException e) {
+            throw new DaoException("findIncomeByMonth() " + e.getMessage());
+        } finally {
+            try {
+                if (resultSet != null) resultSet.close();
+                if (preparedStatement != null) preparedStatement.close();
+                if (connection != null) freeConnection(connection);
+            } catch (SQLException e) {
+                throw new DaoException("findIncomeByMonth() " + e.getMessage());
+            }
+        }
+        return incomeList;
+    }
+
 }

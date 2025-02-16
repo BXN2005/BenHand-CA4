@@ -13,4 +13,6 @@ public interface UserDaoInterface {
     void addExpense(String title, String category, Double amount, Date dateIncurred) throws DaoException;
 
     void deleteExpenseById(int expenseId) throws DaoException;
+
+    public List<User> findExpensesByMonth(int year, int month) throws DaoException;
 }

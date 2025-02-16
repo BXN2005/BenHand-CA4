@@ -15,7 +15,7 @@ public class Income {
         this.dateearned = dateearned;
     }
 
-    public Income(String title, Double amount, Date dateincured) {
+    public Income(String title, Double amount, Date dateearned) {
         this.id = 0;
         this.title = title;
         this.amount = amount;
